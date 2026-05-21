@@ -1,10 +1,10 @@
 'use client';
 
-import { use, useState } from 'react';
+import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 interface PageProps {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };  // not a Promise anymore
 }
 
 export default function VersionPage({ params }: PageProps) {
