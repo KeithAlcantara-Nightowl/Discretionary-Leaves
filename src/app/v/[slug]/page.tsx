@@ -2,9 +2,10 @@
 
 import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { notFound } from 'next/navigation';
 
 interface PageProps {
-  params: { slug: string };  // not a Promise anymore
+  params: { slug: string };
 }
 
 export default function VersionPage({ params }: PageProps) {
@@ -12,13 +13,15 @@ export default function VersionPage({ params }: PageProps) {
   const searchParams = useSearchParams();
   const isExpired = searchParams.get('expired') === 'true';
 
-  // State to manage multiple accordion states natively
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const currentVersion = process.env.NEXT_PUBLIC_CURRENT_VERSION || '2026-05-21';
   const systemIsCurrentLink = slug === currentVersion;
 
-  // Custom inline style mapping containing your exact branding color configurations
+  if (!systemIsCurrentLink) {
+    notFound();
+  }
+
   const customStyles = {
     '--red': '#99130E',
     '--dark-red': '#60070F',
@@ -28,7 +31,6 @@ export default function VersionPage({ params }: PageProps) {
     '--accent': '#F4F4F4',
   } as React.CSSProperties;
 
-  // Block renders if the middleware caught a link past its 60-day lifecycle limit
   if (isExpired) {
     return (
       <div style={customStyles} className="expired-wrapper">
@@ -47,7 +49,6 @@ export default function VersionPage({ params }: PageProps) {
     );
   }
 
-  // Your FAQ data matrix abstracted cleanly inside standard structured JSON
   const faqItems = [
     {
       q: 'What is Discretionary Leave?',
@@ -112,13 +113,8 @@ export default function VersionPage({ params }: PageProps) {
         }
       `}</style>
 
-      {/* Header Notification Status Banner */}
       <div className="version-banner">
-        {systemIsCurrentLink ? (
-          <span>🟢 Viewing latest master version content deployed for: <strong>{slug}</strong></span>
-        ) : (
-          <span>🕒 Viewing archived historical record version ({slug}). Active status window expires 60 days from deployment.</span>
-        )}
+        <span>🟢 Viewing latest master version content deployed for: <strong>{slug}</strong></span>
       </div>
 
       <header>
