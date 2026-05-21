@@ -8,7 +8,7 @@ interface PageProps {
 }
 
 export default function VersionPage({ params }: PageProps) {
-  const { slug } = use(params);
+  const { slug } = params;
   const searchParams = useSearchParams();
   const isExpired = searchParams.get('expired') === 'true';
 
