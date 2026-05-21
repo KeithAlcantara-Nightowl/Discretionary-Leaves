@@ -1,26 +1,40 @@
 'use client';
 
 import { useState } from 'react';
-import { useSearchParams } from 'next/navigation';
 import { notFound } from 'next/navigation';
 
 interface PageProps {
   params: { slug: string };
 }
 
+function checkValidity(slug: string): boolean | null {
+  // Expected format after URL decode: 2026-05-21T15:45:30Z
+  const decoded = decodeURIComponent(slug);
+  const isoRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/;
+  if (!isoRegex.test(decoded)) return null;
+
+  const slugDate = new Date(decoded);
+  if (isNaN(slugDate.getTime())) return null;
+
+  const now = new Date();
+  const diffMs = now.getTime() - slugDate.getTime();
+  const diffDays = diffMs / (1000 * 60 * 60 * 24);
+
+  return diffDays <= 60;
+}
+
 export default function VersionPage({ params }: PageProps) {
   const { slug } = params;
-  const searchParams = useSearchParams();
-  const isExpired = searchParams.get('expired') === 'true';
-
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  const currentVersion = process.env.NEXT_PUBLIC_CURRENT_VERSION || '2026-05-21';
-  const systemIsCurrentLink = slug === currentVersion;
+  const validity = checkValidity(slug);
 
-  if (!systemIsCurrentLink) {
+  // Not a valid ISO 8601 format → 404
+  if (validity === null) {
     notFound();
   }
+
+  const isExpired = validity === false;
 
   const customStyles = {
     '--red': '#99130E',
@@ -42,8 +56,7 @@ export default function VersionPage({ params }: PageProps) {
         `}</style>
         <h1>Link Expired</h1>
         <p>
-          This onboarding version update ({slug}) is older than 60 days and has been phased out
-          systematically. Please request the latest document access link from your coordinator.
+          This document version has been phased out. Please request the latest access link from your coordinator.
         </p>
       </div>
     );
@@ -114,7 +127,7 @@ export default function VersionPage({ params }: PageProps) {
       `}</style>
 
       <div className="version-banner">
-        <span>🟢 Viewing latest master version content deployed for: <strong>{slug}</strong></span>
+        <span>🟢 Active document version — valid for 60 days from issuance</span>
       </div>
 
       <header>
@@ -131,7 +144,7 @@ export default function VersionPage({ params }: PageProps) {
 
       <main className="intro-section">
         <div className="intro-card">
-          <p>This dynamic onboarding policy map runs on high-efficiency automation templates. This active version slice was brought live on {slug}.</p>
+          <p>This document is active and valid. It will automatically expire 60 days from its issuance date.</p>
         </div>
       </main>
 
