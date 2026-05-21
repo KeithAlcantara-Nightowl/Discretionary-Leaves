@@ -113,10 +113,6 @@ if (isExpired) {
         }
       `}</style>
 
-      <div className="version-banner">
-        <span>🟢 Active document version — valid for 60 days from issuance</span>
-      </div>
-
       <header>
         <div className="header-logo">
           NightOwl<span>Consulting</span>
