@@ -45,21 +45,8 @@ export default function VersionPage({ params }: PageProps) {
     '--accent': '#F4F4F4',
   } as React.CSSProperties;
 
-  if (isExpired) {
-    return (
-      <div style={customStyles} className="expired-wrapper">
-        <style jsx global>{`
-          body { background-color: #FBFFF1; font-family: Georgia, serif; color: #0A0101; }
-          .expired-wrapper { max-width: 600px; margin: 100px auto; padding: 40px 24px; text-align: center; background: #fff; border-top: 4px solid #99130E; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border-radius: 4px; }
-          h1 { font-family: 'Montserrat', sans-serif; font-weight: 800; color: #99130E; margin-bottom: 16px; }
-          p { font-size: 16px; line-height: 1.6; color: #6A6968; }
-        `}</style>
-        <h1>Link Expired</h1>
-        <p>
-          This document version has been phased out. Please request the latest access link from your coordinator.
-        </p>
-      </div>
-    );
+if (isExpired) {
+    notFound();
   }
 
   const faqItems = [
