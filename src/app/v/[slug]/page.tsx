@@ -51,12 +51,28 @@ if (isExpired) {
 
   const faqItems = [
     {
-      q: 'What is Discretionary Leave?',
-      a: 'Discretionary Leave is a temporary leave standard variant provided flexibly upon case assessments.',
+      q: 'What are Discretionary Leaves?',
+      a: 'Discretionary Leaves are extra paid leave days that the employee <strong>may</strong> be entitled to on top of the standard <strong>(5 days)</strong> leave entitlements provided by NightOwl. These additional leave benefits are <strong>CLIENT-BASED</strong>. This means that the number of Discretionary Leaves, and the rules for using them, may differ depending on the client you are assigned to.',
     },
     {
-      q: 'How early must I file for a planned leave request allocation?',
-      a: 'Planned requests require formal submission protocols handled at least <strong>5 business days</strong> prior.',
+      q: 'Why does Discretionary Leave entitlement vary per client?',
+      a: "Each client has different business needs, operational structures, and benefit programs. Because of this, additional leave or time-off arrangements available to employees may differ from one client assignment to another. This flexible setup allows NightOwl to align certain employee benefits and time-off arrangements with each client partnership, while maintaining the company's standard leave entitlements for all employees.",
+    },
+    {
+      q: 'Are Discretionary Leaves guaranteed?',
+      a: 'Discretionary Leaves are <strong>NOT GUARANTEED</strong>. If an employee is assigned to a client that offers additional leave, he/she may receive extra paid leave days on top of his/her Service Incentive Leave.',
+    },
+    {
+      q: 'Can Discretionary Leave benefits change?',
+      a: 'Yes, they can change. Because these benefits are <strong>CLIENT-BASED</strong>, the number of Discretionary Leaves and the rules for using them may change if:<ul class="faq-bullets"><li>The client changes its policy;</li><li>Business and operational needs change; or</li><li>The employee is transferred or reassigned to another client.</li></ul>Any applicable changes will be communicated by NightOwl as needed. When there are changes that affect an employee, NightOwl will provide appropriate updates.',
+    },
+    {
+      q: 'Does this affect my standard leave benefits?',
+      a: "No. Your standard leave entitlements provided by NightOwl (the <strong>5-day SIL</strong>) remain separate and unchanged. Any Discretionary Leaves offered through a client assignment are considered an additional benefit on top of the company's standard leave program.",
+    },
+    {
+      q: 'What other days off may apply while assigned to a client?',
+      a: "In addition to the standard leave entitlements and applicable discretionary leave benefits, employees generally follow the <strong>holiday schedule of their assigned client</strong>. Depending on the client assignment, employees may also observe additional holidays, shutdown periods, or rest days throughout the year. These may differ from Philippine national holidays or NightOwl's general holiday calendar, as they are aligned with the client's operations.",
     },
   ];
 
@@ -99,6 +115,20 @@ if (isExpired) {
         .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.38s cubic-bezier(0.4, 0, 0.2, 1); }
         .faq-item.open .faq-answer { max-height: 600px; }
         .faq-answer-inner { padding: 0 0 22px 0; font-size: 15px; line-height: 1.82; color: #2a1a1a; }
+        .faq-answer-inner strong { color: var(--red); font-family: sans-serif; font-weight: 700; }
+        .faq-bullets { margin: 10px 0 10px 22px; padding: 0; }
+        .faq-bullets li { margin-bottom: 6px; line-height: 1.7; }
+
+        .intro-card p { font-size: 15px; line-height: 1.82; }
+        .intro-card p + p { margin-top: 12px; }
+
+        .notice-box { background: #fff8f8; border: 1.5px solid rgba(153,19,14,0.3); border-radius: 8px; padding: 24px 28px; margin-top: 36px; }
+        .notice-box h3 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--red); margin-bottom: 8px; }
+        .notice-box p { font-size: 14px; line-height: 1.75; color: var(--near-black); }
+        .notice-box p + p { margin-top: 10px; }
+        .notice-box strong { color: var(--red); font-family: sans-serif; font-weight: 700; }
+        .notice-bullets { margin: 10px 0 10px 22px; padding: 0; }
+        .notice-bullets li { font-size: 14px; line-height: 1.75; color: var(--near-black); margin-bottom: 6px; }
 
         .contact-section { background: #ffffff; border-top: 1px solid rgba(106,105,104,0.15); border-bottom: 1px solid rgba(106,105,104,0.15); padding: 52px 48px; }
         .contact-inner { max-width: 920px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
@@ -119,20 +149,27 @@ if (isExpired) {
         </div>
       </header>
 
+      <div className="version-banner">
+        This document is active and valid. It will automatically expire 60 days from its issuance date.
+      </div>
+
       <section className="hero">
-        <div className="hero-tag">Internal Guide</div>
-        <h1>Discretionary Leave <span>FAQs</span></h1>
-        <p>Operational directives regarding documentation lifecycles at NightOwl Consulting Philippines Inc.</p>
+        <div className="hero-tag">People &amp; Culture</div>
+        <h1>Discretionary Leave Benefits <span>FAQs</span></h1>
+        <p>Everything you need to know about Discretionary Leaves at NightOwl: how they work, why they vary per client, and what they mean for you.</p>
       </section>
 
       <main className="intro-section">
         <div className="intro-card">
-          <p>This document is active and valid. It will automatically expire 60 days from its issuance date.</p>
+          <p>At NightOwl, we understand that paid time off is an important part of every employee&rsquo;s overall experience and work-life balance.</p>
+          <p>All employees receive the standard leave entitlements provided under company policy and applicable labor laws and regulations, including the five (5) days Service Incentive Leave (&ldquo;SIL&rdquo;) required by law for eligible employees.</p>
+          <p>In some cases, employees assigned to certain clients may also receive additional leave benefits (&ldquo;Discretionary Leaves&rdquo;), depending on their client assignments.</p>
+          <p>This FAQ explains how these Discretionary Leaves work.</p>
         </div>
       </main>
 
       <section className="faq-section">
-        <div className="section-label">General Questions</div>
+        <div className="section-label">Frequently Asked Questions</div>
 
         {faqItems.map((item, idx) => (
           <div key={idx} className={`faq-item ${openFaq === idx ? 'open' : ''}`}>
@@ -150,16 +187,27 @@ if (isExpired) {
             </div>
           </div>
         ))}
+
+        <div className="notice-box" role="note">
+          <h3>Important Note</h3>
+          <p>Discretionary Leave benefits are supplemental and client-based in nature. This means:</p>
+          <ul className="notice-bullets">
+            <li>Availability and allocation may vary depending on the employee&rsquo;s assigned client;</li>
+            <li>These benefits <strong>MAY CHANGE IF THERE IS REASSIGNMENT, CLIENT POLICY UPDATE, or CHANGE IN BUSINESS REQUIREMENTS</strong>; and</li>
+            <li>These are <strong>NOT PERMANENT OR GUARANTEED BENEFITS</strong> and may be adjusted or withdrawn, subject to applicable laws and company policies.</li>
+          </ul>
+          <p>An employee&rsquo;s standard leave entitlements under Philippine law and NightOwl policy remain in place and are not affected by any changes to client-based Discretionary Leaves.</p>
+        </div>
       </section>
 
       <section className="contact-section">
         <div className="contact-inner">
           <div>
-            <div className="section-label">Need clarity?</div>
-            <p>Our global operations and technical onboarding specialists remain active around the clock.</p>
+            <div className="section-label">Still have questions?</div>
+            <p>Please feel free to reach out to your Human Resources Department for further queries.</p>
           </div>
           <a href="mailto:onboarding@hirenightowl.com" className="contact-email">
-            Contact Support
+            Contact HR
           </a>
         </div>
       </section>
