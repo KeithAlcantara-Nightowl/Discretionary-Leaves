@@ -170,10 +170,6 @@ if (isExpired) {
         </div>
       </header>
 
-      <div className="version-banner">
-        This document is active and valid. It will automatically expire 60 days from its issuance date.
-      </div>
-
       <section className="hero">
         <div className="hero-tag">People &amp; Culture</div>
         <h1>Discretionary Leave Benefits <span>FAQs</span></h1>
