@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Discretionary Leave FAQs | NightOwl Consulting Philippines Inc.',
-  description: 'Onboarding guidelines regarding company leave workflows.',
+  title: 'Discretionary Leave Benefits – FAQs | NightOwl Consulting Philippines Inc.',
+  description:
+    'How Discretionary Leaves work at NightOwl: client-based additional paid leave on top of the standard 5-day Service Incentive Leave (SIL).',
 };
 
 export default function RootLayout({
