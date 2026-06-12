@@ -11,7 +11,7 @@ A Next.js App Router project that serves dynamically versioned FAQ pages with au
   |-------|---|---|---|---|---|---|---|---|---|---|
   | letter| k | r | d | x | m | q | z | p | w | f |
 
-- To outsiders it's an opaque ID; the app decodes it, applies a 60-day expiry, and 404s anything expired or implausible (decoded date before 2024 or in the future)
+- To outsiders it's an opaque ID; the app decodes it and 404s anything expired (more than 60 days past the decoded date) or implausible (decoded date before 2024). Future-dated slugs are valid and simply expire 60 days after their decoded date.
 - The `CURRENT_VERSION` env variable controls which slug is considered the "latest"
 
 ## Generating a Slug

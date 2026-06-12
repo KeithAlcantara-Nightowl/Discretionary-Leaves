@@ -26,12 +26,12 @@ export function middleware(request: NextRequest) {
     const slugDate = new Date(epochSeconds * 1000);
     const now = new Date();
 
-    // Invalid decode, implausibly old, or future-dated → 404
+    // Invalid decode or implausibly old → 404.
+    // Future dates are allowed — the page expires 60 days after the decoded date.
     if (
       epochSeconds <= 0 ||
       isNaN(slugDate.getTime()) ||
-      slugDate.getFullYear() < 2024 ||
-      slugDate.getTime() > now.getTime() + 24 * 60 * 60 * 1000
+      slugDate.getFullYear() < 2024
     ) {
       return NextResponse.rewrite(new URL('/404', request.url));
     }

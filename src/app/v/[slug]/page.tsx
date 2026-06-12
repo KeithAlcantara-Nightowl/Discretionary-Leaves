@@ -7,16 +7,37 @@ interface PageProps {
   params: { slug: string };
 }
 
-function checkValidity(slug: string): boolean | null {
-  // Expected format after URL decode: 2026-05-21T15:45:30Z
-  const decoded = decodeURIComponent(slug);
-  const isoRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/;
-  if (!isoRegex.test(decoded)) return null;
+// Slug scheme (Airtable-formula friendly):
+//   epoch seconds + SECRET_OFFSET, then each digit replaced by a letter:
+//   0→k 1→r 2→d 3→x 4→m 5→q 6→z 7→p 8→w 9→f
+//   e.g. 2026-05-21T15:45:30Z → 1779723930 → +offset → "rpwwkqxzxf"
+const SECRET_OFFSET = 8675309;
+const LETTER_TO_DIGIT: Record<string, string> = {
+  k: '0', r: '1', d: '2', x: '3', m: '4',
+  q: '5', z: '6', p: '7', w: '8', f: '9',
+};
 
-  const slugDate = new Date(decoded);
+function checkValidity(slug: string): boolean | null {
+  // Exactly the 10 cipher letters, 9–11 chars (epoch+offset is 10 digits until ~2286)
+  if (!/^[krdxmqzpwf]{9,11}$/.test(slug)) return null;
+
+  const digits = slug
+    .split('')
+    .map((c) => LETTER_TO_DIGIT[c])
+    .join('');
+
+  const epochSeconds = parseInt(digits, 10) - SECRET_OFFSET;
+  if (isNaN(epochSeconds) || epochSeconds <= 0) return null;
+
+  const slugDate = new Date(epochSeconds * 1000);
   if (isNaN(slugDate.getTime())) return null;
 
+  // Reject decoded dates before 2024 so garbage letter strings can't
+  // resolve to a valid page. Future dates are allowed — the page simply
+  // expires 60 days after the decoded date.
   const now = new Date();
+  if (slugDate.getFullYear() < 2024) return null;
+
   const diffMs = now.getTime() - slugDate.getTime();
   const diffDays = diffMs / (1000 * 60 * 60 * 24);
 
